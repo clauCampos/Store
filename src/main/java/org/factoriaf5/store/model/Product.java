@@ -1,6 +1,7 @@
 package org.factoriaf5.store.model;
 
 public class Product {
+
     private final String name;
     private final int price;
 

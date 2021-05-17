@@ -10,15 +10,22 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    @GetMapping("/health")
+    private List<Product> products;
+
+    public ProductController() {
+        products = List.of(
+                new Product("jabón", 30),
+                new Product("shampoo", 35)
+        );
+    }
+        @GetMapping("/health")
     public String check() {
         return "Hello I'm a server";
     }
 
-    public List<Product> products = new ArrayList <>();
     @GetMapping("/products")
     public List<Product> allProducts() {
         return products;
     }
 
-};
+}
