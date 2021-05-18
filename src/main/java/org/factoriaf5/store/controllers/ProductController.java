@@ -1,8 +1,7 @@
 package org.factoriaf5.store.controllers;
 
 import org.factoriaf5.store.model.Product;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,15 +9,10 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 
-    public ProductController() {
-        products = List.of(
-                new Product("jabón", 30),
-                new Product("shampoo", 35)
-        );
-    }
-        @GetMapping("/health")
+
+    @GetMapping("/health")
     public String check() {
         return "Hello I'm a server";
     }
@@ -28,4 +22,26 @@ public class ProductController {
         return products;
     }
 
+    @PostMapping("/products")
+    public void addProduct(Product product) {
+        products.add(product);
+    }
+
+    public Product findProduct(String name, List<Product> products) {
+
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
+    }
+
+    @DeleteMapping("products/{name}")
+    public void deleteProduct(@PathVariable String name) {
+        Product product = findProduct(name,products);
+        products.remove(product);
+    }
+
 }
+
